@@ -32,7 +32,7 @@ export default function AboutSection() {
               </p>
               
               <p className="flex items-center justify-center flex-wrap gap-2">
-                <span>전담 인력 채용 없이도, THÉONÉ를 귀사의 특화된 외부 운영팀으로 활용하십시오.</span>
+                <span>전담 인력 채용 대신, THÉONÉ를 귀사의 특화된 외부 운영팀으로 활용하십시오.</span>
                 <a 
                   href="https://www.linkedin.com/in/hanabeom/" 
                   target="_blank" 
