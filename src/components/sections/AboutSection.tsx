@@ -7,35 +7,37 @@ export default function AboutSection() {
     <section id="about" className="py-20 container mx-auto px-6">
       <div className="max-w-3xl mx-auto">
         
-        {/* 테두리와 여백을 조절하여 디자인 통일감 부여 */}
         <div className="border border-charcoal/10 p-10 lg:p-14 bg-white/50 text-center flex flex-col items-center">
           
-          {/* 타이틀 굵게 처리 */}
           <h2 className="text-3xl font-serif font-bold tracking-wide mb-8 text-charcoal">
             {t('about.title')}
           </h2>
           
           <div className="space-y-10 flex flex-col items-center w-full">
-            {/* 
-              1. max-w를 3xl로 늘려 여유 확보 
-              2. text-balance로 기기별 동적 줄바꿈 최적화
-              3. space-y-5를 추가하여 문단 간의 자연스러운 여백 생성
-            */}
-            <div className="text-base md:text-lg leading-relaxed text-charcoal/80 max-w-2xl text-balance space-y-5">
+            
+            {/* 대표님이 작성하신 호흡(줄바꿈)을 그대로 살린 간격 배치 */}
+            <div className="text-base md:text-lg leading-relaxed text-charcoal/80 max-w-2xl text-balance space-y-6">
               <p>
                 THÉONÉ는 <strong className="font-semibold text-charcoal">뉴욕주 변호사 출신 대표가 직접 운영하는 크로스보더 실무 운영팀</strong>입니다.
               </p>
+              
               <p>
-                저희는 <strong className="font-semibold text-charcoal">KOTRA K-Move 멘토 및 NIPA GIP 전문가</strong>로서, 중동을 비롯한 글로벌 시장 진출 기업의 비즈니스 병목 현상을 즉시 해결합니다. 특장차 제조사의 영문 계약 시스템 구축부터 소비재 기업의 글로벌 컴플라이언스 관리까지, 단순 행정 대행을 넘어 기술과 규제를 통합한 전략적 실무를 제공합니다.
+                KOTRA K-Move 멘토 및 NIPA GIP 전문가로 활동하며, 중동을 비롯한 글로벌 시장 진출 기업의 비즈니스 병목 현상을 매끄럽게 풀어나갑니다.
               </p>
+              
+              <p>
+                국내 특장차 제조사의 영문 계약 시스템 구축부터,<br />
+                소비재 기업의 글로벌 컴플라이언스 관리까지,<br />
+                기술과 규제를 통합한 전략적 비즈니스 실무를 제공하여 막힘 없이 일이 진행되도록 합니다.
+              </p>
+              
               <p className="flex items-center justify-center flex-wrap gap-2">
-                <span>이제 전담 인력 채용 없이, THÉONÉ를 귀사의 외부 운영팀으로 활용하십시오.</span>
-                {/* 링크드인 아이콘 (끝에 살짝, 마우스 오버 시 파란색) */}
+                <span>전담 인력 채용 없이도, THÉONÉ를 귀사의 특화된 외부 운영팀으로 활용하십시오.</span>
                 <a 
                   href="https://www.linkedin.com/in/hanabeom/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex text-charcoal/30 hover:text-[#0A66C2] transition-colors duration-300 ml-1"
+                  className="inline-flex text-charcoal/30 hover:text-[#0A66C2] transition-colors duration-300 ml-1 translate-y-[2px]"
                   title="대표 경력 확인하기 (LinkedIn)"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -45,7 +47,6 @@ export default function AboutSection() {
               </p>
             </div>
             
-            {/* 고지 사항은 왼쪽 정렬을 기본으로 하여 문장 끊김 방지 */}
             <p className="text-xs font-light text-charcoal/50 border-l border-charcoal/20 pl-6 py-1 max-w-lg text-left">
               본 서비스는 변호사법 제109조에 저촉되지 않는 범위 내에서, 법률 자문이 아닌 비즈니스 행정 및 프로젝트 운영(PMO) 지원을 제공합니다.
             </p>
