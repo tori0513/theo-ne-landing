@@ -10,12 +10,26 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['Yeseva One', 'Georgia', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Source Serif 4', 'Georgia', 'serif'],
+        sans: ['Pretendard Variable', 'Pretendard', '-apple-system', 'sans-serif'],
       },
       colors: {
-        cream: '#F9F8F6',
-        charcoal: '#3A3530',
+        cream: '#FFFFFF',
+        charcoal: {
+          DEFAULT: '#191A1C',
+          600: '#3C3D40',
+          500: '#4A4B4E',
+          400: '#55565A',
+          300: '#8A8B8E',
+          200: '#ADAEAA',
+          150: '#C9C9C5',
+          100: '#DDDDD9',
+          50: '#E7E7E4',
+        },
+        navy: {
+          DEFAULT: '#0F1526',
+          hover: '#232B44',
+        },
         accent: '#3A3530',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

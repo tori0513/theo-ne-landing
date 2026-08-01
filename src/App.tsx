@@ -1,29 +1,28 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
-import ServiceSection from "@/components/sections/ServiceSection";
-import InnovationSection from "@/components/sections/InnovationSection";
-import InternationalSection from "@/components/sections/InternationalSection";
-import AboutSection from "@/components/sections/AboutSection";
-import ContactSection from "@/components/sections/ContactSection";
-import { Toaster } from "@/components/ui/sonner";
+import WhatWeDoSection from "@/components/sections/WhatWeDoSection";
+import ProductSection from "@/components/sections/ProductSection";
+import FounderSection from "@/components/sections/FounderSection";
+import HistorySection from "@/components/sections/HistorySection";
+import CorporateInfoSection from "@/components/sections/CorporateInfoSection";
 import './App.css';
 
 function App() {
   return (
-    <div className="min-h-screen bg-cream text-charcoal font-sans scroll-smooth">
-      <Navbar />
-      {/* 섹션 간의 여유를 위해 space-y-12 (간격)와 pb-24 (하단 여백) 추가 */}
-      <main className="space-y-12 pb-24">
-        <HeroSection />
-        <ServiceSection />
-        <InnovationSection />
-        <InternationalSection />
-        <AboutSection />
-        <ContactSection />
-      </main>
-      <Footer />
-      <Toaster />
+    <div className="min-h-screen bg-cream font-sans text-charcoal [font-variant-numeric:tabular-nums]">
+      <div className="mx-auto flex max-w-[840px] flex-col gap-12 px-6 py-9 md:gap-14 md:py-14">
+        <Navbar />
+        <main className="flex flex-col gap-12 md:gap-14">
+          <HeroSection />
+          <WhatWeDoSection />
+          <ProductSection />
+          <FounderSection />
+          <HistorySection />
+          <CorporateInfoSection />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }

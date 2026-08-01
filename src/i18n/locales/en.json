@@ -1,90 +1,78 @@
 {
-  "nav": {
-    "services": "Global Desk",
-    "innovation": "AI Workflow",
-    "international": "Fractional Operator",
-    "about": "About THÉONÉ",
-    "cta": "Request Quote"
+  "header": {
+    "legalName": "THÉONÉ Inc."
   },
   "hero": {
-    "title": "THÉONÉ",
-    "subtitle": "Your Global Operations Team, On Demand",
-    "desc": "There is no need to hire a dedicated team for every cross-border task. THÉONÉ Global Desk acts as your fractional operations team on demand, executing cross-border administration, partnership coordination, and project management.",
-    "btnServices": "View Services",
-    "btnContact": "Request Quote"
+    "label": "THÉONÉ Inc.",
+    "title": "Cross-border trade for SMEs",
+    "desc": "We handle it directly. What repeats, we build into software."
   },
-  "services": {
-    "title": "Global Desk Services",
-    "quick": {
-      "title": "Quick Desk",
-      "badge": "Within 1-2 Business Days",
-      "target": "Best for: Resolving immediate bottlenecks in single cross-border operations.",
+  "whatWeDo": {
+    "eyebrow": "What we do",
+    "handle": {
+      "title": "We handle it directly",
+      "desc": "We read the documents and the regulations ourselves, and run the procedures.",
       "items": [
-        "Drafting and reviewing official English correspondence for overseas buyers/partners",
-        "Refining English presentation materials for global meetings and conference calls",
-        "Establishing administrative guardrails and checklists prior to cross-border contracts"
-      ],
-      "btn": "Quick Desk Inquiry"
+        "International contract administration",
+        "Partnership operations",
+        "Cross-border project management"
+      ]
     },
-    "mission": {
-      "title": "Mission Desk",
-      "badge": "Within 1-2 Weeks",
-      "target": "Best for: Delegating an independent international mission from infrastructure setup to completion.",
-      "items": [
-        "Administrative process management for overseas contract execution",
-        "Analyzing global partner requirements and proposing alternative operations",
-        "Pitching proposals and initial coordination to secure overseas local partners"
-      ],
-      "btn": "Mission Desk Inquiry"
-    },
-    "project": {
-      "title": "Project Desk",
-      "badge": "1-3 Months (Project Basis)",
-      "target": "Best for: Milestone management across complex projects involving multiple stakeholders (expansion, investment, contracts).",
-      "items": [
-        "Execution strategies for global expansion and local operational infrastructure",
-        "Overall project management for overseas investment attraction",
-        "End-to-end PMO lead for global projects"
-      ],
-      "btn": "Project Desk Inquiry"
+    "build": {
+      "title": "We build it into software",
+      "desc": "Working through it reveals what repeats. That becomes the product.",
+      "steps": [
+        { "badge": "First", "text": "AI scans the full transaction and marks the points that need checking." },
+        { "badge": "Second", "text": "Your team checks only those points and proceeds." }
+      ]
     }
   },
-  "innovation": {
-    "title": "AI Workflow Infrastructure",
-    "desc": "We are developing AI-driven risk management solutions to enhance trust and safety in global trade.",
-    "btn": "Inquire"
+  "product": {
+    "eyebrow": "Product",
+    "title": "TROPS",
+    "tagline": "AI trade operations service for small and mid-sized exporters",
+    "desc": "Buyer verification, contracts, export procedures, payment collection — connected into one transaction flow you can track. A step that isn't complete won't let the next one start. Built so nothing depends on memory.",
+    "cta": "View TROPS",
+    "badge": "Selected, KAIST AI Founders 100"
   },
-  "international": {
-    "title": "Fractional Operator for International Partners",
-    "value": "We provide reliable local operational services for international companies entering the Korean market.",
-    "btn": "Request Quote"
+  "founder": {
+    "eyebrow": "Founder",
+    "name": "Hana Beom · Founder",
+    "bio1": "Attorney admitted in New York and a software engineer. Handled cross-border transactions at a global corporation and at a law firm.",
+    "bio2": "Work through enough contracts going sideways and payments running late, and you see that most problems don't come from hard judgment calls. They come from a step that was skipped. THÉONÉ Inc. works on those steps.",
+    "credentialsLabel": "Credentials",
+    "credentials": [
+      "Attorney, New York State Bar",
+      "KOTRA K-Move Mentor",
+      "NIPA GIP Expert Advisor"
+    ]
   },
-  "about": {
-    "title": "About THÉONÉ",
-    "identity": "<strong>THÉONÉ is a cross-border operations team directly led by a New York-licensed attorney.</strong>\n\nServing as a <strong>KOTRA K-Move Mentor and NIPA GIP Expert</strong>, we seamlessly resolve business bottlenecks for companies expanding into the Middle East and other global markets.\n\nFrom establishing English contract frameworks for specialty vehicle manufacturers, to managing global compliance for consumer brands, we provide strategic business operations that integrate technology and regulatory insights, ensuring your projects move forward without friction.\n\nInstead of hiring full-time, in-house personnel, leverage THÉONÉ as your specialized external operations team.",
-    "compliance": "This service provides business administration and project management (PMO) support, not legal advice, in compliance with Article 109 of the Attorney-at-Law Act.",
-    "founderName": "Hana Beom",
-    "founderDesc": "A New York-licensed attorney with a software engineering background, supporting operations where technology and regulation meet.",
-    "linkedinBtn": "View LinkedIn Profile"
+  "history": {
+    "eyebrow": "History",
+    "items": [
+      { "year": "2026", "event": "THÉONÉ Inc. founded" },
+      { "year": "2026", "event": "TROPS development and operation" }
+    ]
   },
-  "contact": {
-    "title": "Contact",
-    "formName": "Name",
-    "formCompany": "Company",
-    "formEmail": "Email",
-    "formPhone": "Phone",
-    "formType": "Inquiry Type",
-    "formTypePlaceholder": "Select an inquiry type",
-    "formMessage": "Message",
-    "submitBtn": "Submit Inquiry",
-    "success": "Inquiry sent successfully!",
-    "error": "Failed to send inquiry.",
-    "types": {
-      "quick": "Quick Desk Inquiry",
-      "mission": "Mission Desk Inquiry",
-      "project": "Project Desk Inquiry",
-      "rnd": "AI Workflow Research Inquiry",
-      "international": "Global Partnership Inquiry"
+  "corporate": {
+    "eyebrow": "Corporate information",
+    "fields": {
+      "name": "Company",
+      "ceo": "Founder",
+      "regNo": "Business Reg.",
+      "address": "Address",
+      "email": "Email"
+    },
+    "values": {
+      "name": "THÉONÉ Inc.",
+      "ceo": "Hana Beom",
+      "regNo": "625-81-04032",
+      "address": "Westin Seoul Parnas B269-11, 524 Bongeunsa-ro, Gangnam-gu, Seoul, Korea",
+      "email": "contact@theo-ne.com"
     }
+  },
+  "footer": {
+    "copyright": "© 2026 THÉONÉ Inc. All rights reserved.",
+    "disclaimer": "Not a legal advisory service. Matters requiring judgment are referred to partner professionals."
   }
 }

@@ -1,9 +1,12 @@
+import { useTranslation } from "react-i18next";
+
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
-    <footer className="border-t py-8 mt-16 bg-muted/20">
-      <div className="container mx-auto text-center text-sm text-muted-foreground">
-        <p>&copy; {new Date().getFullYear()} THÉONÉ Global Desk. All rights reserved.</p>
-      </div>
+    <footer className="flex flex-col gap-1.5 border-t border-charcoal pt-5 text-[13px] leading-[1.55] text-charcoal-400">
+      <div>{t('footer.copyright')}</div>
+      <div>{t('footer.disclaimer')}</div>
     </footer>
   );
 }
