@@ -1,3 +1,4 @@
+import { Linkedin } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function FounderSection() {
@@ -31,6 +32,17 @@ export default function FounderSection() {
             </div>
           ))}
         </div>
+
+        <a
+          href="https://www.linkedin.com/in/hanabeom/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t('founder.linkedinLabel')}
+          className="mt-1 inline-flex w-fit items-center gap-1.5 text-[15px] text-charcoal-400 transition-colors hover:text-charcoal"
+        >
+          <Linkedin className="h-4 w-4" aria-hidden="true" />
+          <span>LinkedIn</span>
+        </a>
       </div>
     </section>
   );
