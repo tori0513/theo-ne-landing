@@ -40,7 +40,7 @@ export default function FounderSection() {
           aria-label={t('founder.linkedinLabel')}
           className="mt-1 inline-flex w-fit items-center gap-1.5 text-[15px] text-charcoal-400 transition-colors hover:text-charcoal"
         >
-          <Linkedin className="h-4 w-4" aria-hidden="true" />
+          <Linkedin className="h-3.5 w-3.5" aria-hidden="true" />
           <span>LinkedIn</span>
         </a>
       </div>
