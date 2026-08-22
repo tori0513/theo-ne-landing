@@ -5,6 +5,7 @@ import WhatWeDoSection from "@/components/sections/WhatWeDoSection";
 import ProductSection from "@/components/sections/ProductSection";
 import FounderSection from "@/components/sections/FounderSection";
 import HistorySection from "@/components/sections/HistorySection";
+import FaqSection from "@/components/sections/FaqSection";
 import CorporateInfoSection from "@/components/sections/CorporateInfoSection";
 import './App.css';
 
@@ -19,6 +20,7 @@ function App() {
           <ProductSection />
           <FounderSection />
           <HistorySection />
+          <FaqSection />
           <CorporateInfoSection />
         </main>
         <Footer />

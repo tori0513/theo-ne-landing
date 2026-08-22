@@ -36,6 +36,12 @@
     @apply bg-cream text-charcoal font-sans antialiased;
     margin: 0;
     min-height: 100vh;
+    /* Korean must break at word boundaries, not between Hangul syllables.
+       Without keep-all, "한도 관리" wraps as "한 / 도 관리" and "서울" as
+       "서 / 울". Harmless for English, where it behaves as normal. */
+    word-break: keep-all;
+    /* Safety valve so unbreakable tokens (emails, URLs) still wrap. */
+    overflow-wrap: break-word;
   }
 
   ::selection {
@@ -50,7 +56,13 @@
 }
 
 @layer utilities {
+  /* balance evens out short headings; pretty is for running prose, where it
+     keeps the last line from being left with a single orphan word. */
   .text-balance {
     text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
   }
 }

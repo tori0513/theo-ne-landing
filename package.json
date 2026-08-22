@@ -5,17 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && npm run build:ssr && node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "build:ssr": "vite build --ssr src/entry-server.tsx --outDir dist-ssr --emptyOutDir",
+    "build:og": "node scripts/make-og-image.mjs"
   },
   "dependencies": {
     "i18next": "^23.11.5",
     "react-i18next": "^14.1.2",
-    "@hookform/resolvers": "^3.6.0",
-    "zod": "^3.23.8",
     "@hookform/resolvers": "^3.9.0",
+    "zod": "^3.23.8",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
@@ -62,8 +63,7 @@
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
-    "vaul": "^1.0.0",
-    "zod": "^3.23.8"
+    "vaul": "^1.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",

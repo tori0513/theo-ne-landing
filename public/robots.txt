@@ -1,0 +1,98 @@
+# https://theo-ne.com/robots.txt
+# THÉONÉ Inc. (주)테오네
+#
+# This site is open to AI search and AI answer engines. The wildcard rule below
+# already allows every crawler; the named groups exist to state that intent
+# explicitly for the AI crawlers that look for their own user-agent.
+
+User-agent: *
+Allow: /
+
+# --- OpenAI / ChatGPT ---
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# --- Anthropic / Claude ---
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# --- Google (Gemini grounding & AI Overviews) ---
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# --- Microsoft (Bing, Copilot) ---
+User-agent: Bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+# --- Perplexity ---
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# --- Apple Intelligence / Siri ---
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# --- Meta AI ---
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# --- Common Crawl (training + retrieval corpus for many models) ---
+User-agent: CCBot
+Allow: /
+
+# --- Other answer engines & AI crawlers ---
+User-agent: Amazonbot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+Sitemap: https://theo-ne.com/sitemap.xml

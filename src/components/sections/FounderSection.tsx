@@ -13,10 +13,10 @@ export default function FounderSection() {
       <h2 className="mb-3 text-xl font-bold text-charcoal md:text-[23px]">
         {t('founder.name')}
       </h2>
-      <p className="mb-3 max-w-[680px] text-base leading-[1.6] text-charcoal text-balance">
+      <p className="mb-3 max-w-[680px] text-base leading-[1.6] text-charcoal text-pretty">
         {t('founder.bio1')}
       </p>
-      <p className="max-w-[680px] text-base leading-[1.6] text-charcoal text-balance">
+      <p className="max-w-[680px] text-base leading-[1.6] text-charcoal text-pretty">
         {t('founder.bio2')}
       </p>
 

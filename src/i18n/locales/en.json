@@ -22,8 +22,14 @@
       "title": "We build it into software",
       "desc": "Working through it reveals what repeats. That becomes the product.",
       "steps": [
-        { "badge": "First", "text": "AI scans the full transaction and marks the points that need checking." },
-        { "badge": "Second", "text": "Your team checks only those points and proceeds." }
+        {
+          "badge": "First",
+          "text": "AI scans the full transaction and marks the points that need checking."
+        },
+        {
+          "badge": "Second",
+          "text": "Your team checks only those points and proceeds."
+        }
       ]
     }
   },
@@ -31,7 +37,22 @@
     "eyebrow": "Product",
     "title": "TROPS",
     "tagline": "AI trade operations service for small and mid-sized exporters",
-    "desc": "Buyer verification, contracts, export procedures, payment collection — connected into one transaction flow you can track. A step that isn't complete won't let the next one start. Built so nothing depends on memory.",
+    "desc": "Export contracts and trade insurance policies scatter the deadlines you have to meet. Across notice, application, premium payment and limit management, each clause starts counting from a different point, and even for the same insurance the deadline shifts with the product and the method of notice.",
+    "desc2": "TROPS sorts those scattered clauses and contract terms into a single list, and manages the transaction flow from buyer verification through to payment collection.",
+    "features": [
+      {
+        "title": "Procedures run in order",
+        "desc": "A step that isn't complete won't let the next one start. Built so nothing depends on memory."
+      },
+      {
+        "title": "It doesn't make the call",
+        "desc": "No interpretation, no grading. It shows you where the clause sits and when it is due. Every basis is cited by its original clause number."
+      },
+      {
+        "title": "The record becomes your evidence",
+        "desc": "What was handled, and when, stays exactly as it happened. When you file an insurance claim, you can export that record and submit it."
+      }
+    ],
     "cta": "View TROPS",
     "badge": "Selected, KAIST AI Founders 100"
   },
@@ -51,8 +72,47 @@
   "history": {
     "eyebrow": "History",
     "items": [
-      { "year": "2026", "event": "THÉONÉ Inc. founded" },
-      { "year": "2026", "event": "TROPS development and operation" }
+      {
+        "year": "2026",
+        "event": "THÉONÉ Inc. founded"
+      },
+      {
+        "year": "2026",
+        "event": "TROPS development and operation"
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What is THÉONÉ Inc.?",
+        "a": "THÉONÉ Inc. handles cross-border trade operations for small and mid-sized companies directly, and builds the parts that repeat into AI software. Founded in Seoul in 2026, it develops and operates TROPS, a trade operations service for exporters."
+      },
+      {
+        "q": "What is TROPS?",
+        "a": "TROPS is an AI trade operations service for small and mid-sized exporters. It sorts the deadlines scattered across export contracts and trade insurance policies into a single list, and manages the transaction flow from buyer verification through to payment collection. A step that is not complete will not let the next one start, and the processing record can be exported as evidence when filing an insurance claim."
+      },
+      {
+        "q": "Who uses THÉONÉ Inc.?",
+        "a": "Small and mid-sized companies that trade across borders without a dedicated legal or trade team. THÉONÉ Inc. takes on the work directly when international contract administration, partnership operations, or cross-border project management is needed."
+      },
+      {
+        "q": "Is this a legal advisory service?",
+        "a": "No. THÉONÉ Inc. is a trade operations service that handles documents and procedures directly, and does not provide legal advice. Matters requiring legal judgment are referred to partner professionals."
+      },
+      {
+        "q": "How is AI used in the work?",
+        "a": "AI scans the full transaction first and marks the points that need checking, and your team then checks only those points and proceeds. TROPS does not interpret clauses or grade them. It shows where a clause sits and when it is due, citing each basis by its original clause number."
+      },
+      {
+        "q": "Who is the founder?",
+        "a": "Hana Beom is an attorney admitted in New York and a software engineer. They handled cross-border transactions at a global corporation and at a law firm, and serve as a KOTRA K-Move mentor and a NIPA GIP expert advisor."
+      },
+      {
+        "q": "How do I get in touch?",
+        "a": "Email contact@theo-ne.com. The office is at the Westin Seoul Parnas, 524 Bongeunsa-ro, Gangnam-gu, Seoul, Korea."
+      }
     ]
   },
   "corporate": {
