@@ -6,3 +6,4 @@ dist-ssr/
 .vercel/
 ai-search-report.json
 ai-search-report.png
+.vercel

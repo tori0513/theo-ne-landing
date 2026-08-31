@@ -102,7 +102,7 @@ ${colorConfig
     )
     .join('\n');
 
-  // Rendered as a text child rather than dangerouslySetInnerHTML: React
+  // Rendered as a plain JSX text child (not raw-HTML-injected): React
   // inserts it as a text node, so the browser's CSS parser consumes it
   // directly and it is never run through HTML parsing.
   return <style>{css}</style>;
