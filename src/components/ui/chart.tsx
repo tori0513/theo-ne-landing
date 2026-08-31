@@ -65,12 +65,21 @@ const ChartContainer = React.forwardRef<
 });
 ChartContainer.displayName = 'Chart';
 
+// Only well-formed CSS identifiers/colors are allowed into the injected
+// <style> text below, so a config value can never break out of the style
+// context (e.g. via `</style>`) or inject arbitrary CSS/HTML.
+const SAFE_IDENTIFIER = /^[a-zA-Z0-9_-]+$/;
+const SAFE_COLOR =
+  /^(#[0-9a-fA-F]{3,8}|(rgb|rgba|hsl|hsla|oklch|oklab|lab|lch|color-mix|var)\([^"'<>;{}]*\)|[a-zA-Z]+)$/;
+
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
+  const safeId = SAFE_IDENTIFIER.test(id) ? id : '';
   const colorConfig = Object.entries(config).filter(
-    ([, config]) => config.theme || config.color
+    ([key, config]) =>
+      SAFE_IDENTIFIER.test(key) && (config.theme || config.color)
   );
 
-  if (!colorConfig.length) {
+  if (!safeId || !colorConfig.length) {
     return null;
   }
 
@@ -80,13 +89,15 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
         __html: Object.entries(THEMES)
           .map(
             ([theme, prefix]) => `
-${prefix} [data-chart=${id}] {
+${prefix} [data-chart=${safeId}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
     const color =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
       itemConfig.color;
-    return color ? `  --color-${key}: ${color};` : null;
+    return color && SAFE_COLOR.test(color)
+      ? `  --color-${key}: ${color};`
+      : null;
   })
   .join('\n')}
 }
