@@ -331,13 +331,11 @@ if (!fs.existsSync(templatePath)) {
 }
 const template = fs.readFileSync(templatePath, 'utf8');
 
-for (const [name, envVar] of [
-  ['google', 'GOOGLE_SITE_VERIFICATION'],
-  ['naver', 'NAVER_SITE_VERIFICATION'],
-]) {
-  if (!VERIFICATION[name]) {
-    console.warn(`  ! ${envVar} is unset — the ${name} site-verification tag will be omitted.`);
-  }
+// Google owns this property through a DNS TXT record on the apex domain, so no
+// google meta tag is expected and its absence is not worth warning about.
+// GOOGLE_SITE_VERIFICATION stays wired up for a future URL-prefix property.
+if (!VERIFICATION.naver) {
+  console.warn('  ! NAVER_SITE_VERIFICATION is unset — the naver site-verification tag will be omitted.');
 }
 
 const { render } = await import(pathToFileURL(path.join(root, 'dist-ssr/entry-server.js')).href);
