@@ -20,6 +20,16 @@ export const VERIFICATION = {
   naver: process.env.NAVER_SITE_VERIFICATION ?? '',
 };
 
+/**
+ * IndexNow key. Bing and Naver both participate, so one ping reaches both;
+ * Google does not support the protocol and still needs Search Console.
+ *
+ * Not a secret — the protocol requires it to be publicly readable at
+ * `${ORIGIN}/${INDEXNOW_KEY}.txt`, which is what public/<key>.txt serves.
+ * Changing this constant means renaming that file to match.
+ */
+export const INDEXNOW_KEY = '222366b31a2e7807519875307d2f793e';
+
 export const OG_IMAGE = {
   path: '/og.png',
   width: 1200,
