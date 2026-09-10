@@ -92,7 +92,10 @@ function buildGraph(lang) {
     description: M.founderDescription,
     worksFor: { '@id': orgId },
     url: pageUrl,
-    sameAs: [LINKS.linkedin],
+    // One person runs four domains and nothing on the web says so. sameAs is the
+    // claim that ties them together; it only carries weight once each of those
+    // sites names the founder back, so treat this as half of the link.
+    sameAs: [LINKS.linkedin, LINKS.hanabeomlaw, LINKS.teheranroai],
     knowsAbout: M.knowsAbout,
     knowsLanguage: ['ko', 'en'],
     hasCredential: L.founder.credentials.map((c) => ({

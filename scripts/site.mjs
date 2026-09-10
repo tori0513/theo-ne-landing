@@ -40,6 +40,10 @@ export const OG_IMAGE = {
 export const LINKS = {
   linkedin: 'https://www.linkedin.com/in/hanabeom/',
   trops: 'https://trops.kr',
+  // The founder's other properties. Both are the founder's own work rather than
+  // the company's, so they hang off the Person node, not the Organization.
+  hanabeomlaw: 'https://hanabeomlaw.com',
+  teheranroai: 'https://www.teheranro-ai.com',
 };
 
 export const LANGS = ['ko', 'en'];
