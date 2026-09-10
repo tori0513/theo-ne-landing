@@ -9,7 +9,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { LANGS, DEFAULT_LANG, META, ORIGIN, OG_IMAGE, LINKS, pathFor, urlFor } from './site.mjs';
+import { LANGS, DEFAULT_LANG, META, ORIGIN, OG_IMAGE, LINKS, VERIFICATION, pathFor, urlFor } from './site.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -181,6 +181,14 @@ function buildHead(lang) {
     `<meta name="description" content="${esc(M.description)}" />`,
     // Let engines quote the page at full length and show a large preview.
     `<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />`,
+    // Search-console ownership. Both consoles re-check the tag periodically, so
+    // it has to survive every deploy, not just the first one.
+    ...(VERIFICATION.google
+      ? [`<meta name="google-site-verification" content="${esc(VERIFICATION.google)}" />`]
+      : []),
+    ...(VERIFICATION.naver
+      ? [`<meta name="naver-site-verification" content="${esc(VERIFICATION.naver)}" />`]
+      : []),
     `<meta name="author" content="${esc(META[lang].siteName)}" />`,
     `<link rel="canonical" href="${pageUrl}" />`,
     ...LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${urlFor(l)}" />`),
@@ -322,6 +330,15 @@ if (!fs.existsSync(templatePath)) {
   throw new Error('dist/index.html not found — run `vite build` before prerendering.');
 }
 const template = fs.readFileSync(templatePath, 'utf8');
+
+for (const [name, envVar] of [
+  ['google', 'GOOGLE_SITE_VERIFICATION'],
+  ['naver', 'NAVER_SITE_VERIFICATION'],
+]) {
+  if (!VERIFICATION[name]) {
+    console.warn(`  ! ${envVar} is unset — the ${name} site-verification tag will be omitted.`);
+  }
+}
 
 const { render } = await import(pathToFileURL(path.join(root, 'dist-ssr/entry-server.js')).href);
 

@@ -3,6 +3,23 @@
 
 export const ORIGIN = 'https://theo-ne.com';
 
+/**
+ * Search-console ownership tokens (Google Search Console, 네이버 서치어드바이저).
+ *
+ * Supplied as build-time environment variables so the tokens stay out of the
+ * repo — Vercel > Project > Settings > Environment Variables:
+ *   GOOGLE_SITE_VERIFICATION  Search Console > HTML 태그 방식의 content 값만
+ *   NAVER_SITE_VERIFICATION   서치어드바이저 > 사이트 소유확인 > HTML 태그의 content 값만
+ *
+ * An empty value simply omits the tag, so a local build works without them —
+ * prerender.mjs warns when one is missing so a production build cannot lose
+ * ownership silently.
+ */
+export const VERIFICATION = {
+  google: process.env.GOOGLE_SITE_VERIFICATION ?? '',
+  naver: process.env.NAVER_SITE_VERIFICATION ?? '',
+};
+
 export const OG_IMAGE = {
   path: '/og.png',
   width: 1200,
