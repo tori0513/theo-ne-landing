@@ -6,10 +6,13 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="contact" aria-labelledby="contact-h">
-      <h2 id="contact-h">{t('contact.heading')}</h2>
-      <p style={{ margin: 0 }}>
-        <a href={`mailto:${email}`}>{email}</a>
-      </p>
+      <div className="contact-card">
+        <div>
+          <h2 id="contact-h" className="eyebrow">{t('contact.heading')}</h2>
+          <a className="mail" href={`mailto:${email}`}>{email}</a>
+        </div>
+        <a className="btn btn-primary" href={`mailto:${email}`}>{t('work.support.cta')}</a>
+      </div>
     </section>
   );
 }
