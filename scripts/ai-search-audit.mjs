@@ -76,7 +76,7 @@ check(C1, 6, 'English page renders server-side', enText.length >= 1000,
   `${enText.length} chars of text in raw HTML`);
 check(C1, 6, 'Root element is not an empty shell', !/<div id="root">\s*<\/div>/.test(ko.body),
   /<div id="root">\s*<\/div>/.test(ko.body) ? 'root is empty: SPA not prerendered' : 'prerendered markup present');
-const coreTokens = ['테오네', 'TROPS', '범하나', 'contact@theo-ne.com', '625-81-04032'];
+const coreTokens = ['테오네', 'TROPS', 'Teheranro AI Studio', '범하나', 'contact@theo-ne.com', '625-81-04032'];
 const foundTokens = coreTokens.filter((t) => koText.includes(t));
 partial(C1, 6, 'Core entities present in static HTML', foundTokens.length / coreTokens.length,
   `${foundTokens.length}/${coreTokens.length}: ${foundTokens.join(', ')}`);
@@ -111,17 +111,17 @@ check(C3, 4, 'JSON-LD parses on both pages', !!ld && !!ldEn,
 const graph = ld?.['@graph'] ?? [];
 const nodeOf = (t) => graph.find((n) => (Array.isArray(n['@type']) ? n['@type'] : [n['@type']]).includes(t));
 const org = nodeOf('Organization');
-check(C3, 4, 'Organization: name, address, registration id',
-  !!(org?.name && org?.address?.streetAddress && org?.identifier?.value),
-  org ? `taxID=${org.taxID}` : 'absent');
+check(C3, 4, 'Organization: name, address, registration id, brand',
+  !!(org?.name && org?.address?.streetAddress && org?.taxID && org?.brand?.name),
+  org ? `taxID=${org.taxID}, brand=${org.brand?.name}` : 'absent');
 const person = nodeOf('Person');
-check(C3, 3, 'Person (founder) with credentials + sameAs',
-  !!(person?.name && person?.hasCredential?.length && person?.sameAs?.length),
-  person ? `${person.name}, ${person.hasCredential?.length} credentials` : 'absent');
+check(C3, 3, 'Person (founder) with job title, award + sameAs',
+  !!(person?.name && person?.jobTitle && person?.award && person?.sameAs?.length),
+  person ? `${person.name}, ${person.jobTitle}, award=${person.award}` : 'absent');
 const app = nodeOf('SoftwareApplication');
-check(C3, 3, 'SoftwareApplication (product) with url + features',
-  !!(app?.name && app?.url && app?.featureList?.length),
-  app ? `${app.name} -> ${app.url}, ${app.featureList?.length} features` : 'absent');
+check(C3, 3, 'SoftwareApplication (product) with url + publisher',
+  !!(app?.name && app?.url && app?.publisher?.['@id']),
+  app ? `${app.name} -> ${app.url}, publisher ${app.publisher?.['@id']}` : 'absent');
 const faq = nodeOf('FAQPage');
 const qCount = faq?.mainEntity?.length ?? 0;
 partial(C3, 4, 'FAQPage with 5+ answered questions', qCount / 5,
@@ -143,14 +143,15 @@ check(C3, 2, 'No dangling @id references', dangling.length === 0,
 // Questions a user would actually ask an AI, and the fact each answer needs.
 const C4 = '질문 답변 가능성 (Answerability)';
 const probes = [
-  ['테오네는 어떤 회사인가?', ['수출입', '직접 처리']],
-  ['TROPS는 무엇인가?', ['TROPS', '거래 운영']],
+  ['테오네는 어떤 회사인가?', ['해외 거래', '소프트웨어']],
+  ['기업 지원으로 무엇을 요청할 수 있나?', ['수출·무역보험 서류 준비', '해외 거래 리스크 점검']],
+  ['Teheranro AI Studio와 어떤 관계인가?', ['Teheranro AI Studio', '브랜드']],
+  ['어떤 소프트웨어를 만드는가?', ['TROPS', 'Otherwise', 'Bar Route']],
   ['누가 창업했는가?', ['범하나', '뉴욕주 변호사']],
-  ['어떤 기업이 대상인가?', ['중소기업']],
-  ['법률 자문인가?', ['법률 자문을 제공하지 않습니다']],
+  ['법률 자문을 하는가?', ['법률 자문', '채권 추심']],
   ['연락 방법은?', ['contact@theo-ne.com']],
   ['사업자번호와 주소는?', ['625-81-04032', '강남구']],
-  ['수상/선정 이력은?', ['KAIST']],
+  ['수상/선정 이력은?', ['KAIST OverEdge']],
 ];
 const answered = probes.filter(([, facts]) => facts.every((f) => koText.includes(f)));
 partial(C4, 15, 'Key questions answerable from static HTML alone',
@@ -167,7 +168,8 @@ const smOk = sm.status === 200 && sm.body.includes('<urlset') &&
              sm.body.includes('/en/') && sm.body.includes('hreflang');
 check(C5, 4, 'sitemap.xml with both locales + hreflang', smOk, `HTTP ${sm.status}`);
 const llms = await get(`${BASE}/llms.txt`);
-const llmsOk = llms.status === 200 && llms.body.includes('TROPS') && llms.body.includes('625-81-04032');
+const llmsOk = llms.status === 200 && llms.body.includes('TROPS') &&
+                llms.body.includes('Teheranro AI Studio') && llms.body.includes('625-81-04032');
 check(C5, 3, 'llms.txt with company facts', llmsOk, `HTTP ${llms.status}, ${llms.body.length} bytes`);
 const hasCanon = (h) => /<link rel="canonical"/.test(h);
 const hreflangCount = (h) => (h.match(/rel="alternate" hreflang=/g) || []).length;

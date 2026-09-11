@@ -1,19 +1,24 @@
+import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function HeroSection() {
   const { t } = useTranslation();
+  const lede = t('hero.lede', { returnObjects: true }) as string[];
 
   return (
-    <section className="flex flex-col">
-      <div className="mb-4 text-[12.5px] font-semibold tracking-[0.16em] text-charcoal">
-        {t('hero.label')}
-      </div>
-      <h1 className="mb-3 text-[32px] font-bold leading-[1.2] tracking-[-0.02em] text-charcoal md:text-[44px]">
-        {t('hero.title')}
+    <div className="hero">
+      <h1>
+        <span>{t('hero.name')}</span>
+        <span className="h1-en">{t('hero.nameAlt')}</span>
       </h1>
-      <p className="text-lg leading-[1.6] text-charcoal-600 text-balance">
-        {t('hero.desc')}
+      <p className="lede">
+        {lede.map((line, i) => (
+          <Fragment key={line}>
+            {i > 0 && <br />}
+            {line}
+          </Fragment>
+        ))}
       </p>
-    </section>
+    </div>
   );
 }

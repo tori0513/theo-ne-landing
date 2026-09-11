@@ -9,7 +9,19 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { LANGS, DEFAULT_LANG, META, ORIGIN, OG_IMAGE, LINKS, VERIFICATION, pathFor, urlFor } from './site.mjs';
+import {
+  LANGS,
+  DEFAULT_LANG,
+  META,
+  ORIGIN,
+  OG_IMAGE,
+  ogImagePathFor,
+  TAX_ID,
+  LINKS,
+  VERIFICATION,
+  pathFor,
+  urlFor,
+} from './site.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -30,7 +42,8 @@ function buildGraph(lang) {
   const L = locales[lang];
   const M = META[lang];
   const pageUrl = urlFor(lang);
-  const orgId = `${ORIGIN}/#organization`;
+  const ogImage = `${ORIGIN}${ogImagePathFor(lang)}`;
+  const orgId = `${ORIGIN}/#org`;
   const founderId = `${ORIGIN}/#founder`;
   const tropsId = `${ORIGIN}/#trops`;
   const siteId = `${ORIGIN}/#website`;
@@ -38,109 +51,64 @@ function buildGraph(lang) {
   const organization = {
     '@type': 'Organization',
     '@id': orgId,
-    name: L.corporate.values.name,
-    legalName: L.corporate.values.name,
-    alternateName: lang === 'ko' ? ['THÉONÉ Inc.', 'THÉONÉ', '테오네'] : ['(주)테오네', 'THÉONÉ'],
-    url: ORIGIN,
+    name: M.orgName,
+    alternateName: M.orgAlternateName,
+    url: `${ORIGIN}/`,
     description: M.orgDescription,
-    slogan: L.hero.desc,
+    email: L.contact.email,
     foundingDate: '2026',
-    email: L.corporate.values.email,
-    logo: { '@type': 'ImageObject', url: `${ORIGIN}${OG_IMAGE.path}` },
-    image: `${ORIGIN}${OG_IMAGE.path}`,
-    taxID: L.corporate.values.regNo,
-    identifier: {
-      '@type': 'PropertyValue',
-      name: M.regNoLabel,
-      value: L.corporate.values.regNo,
-    },
+    logo: { '@type': 'ImageObject', url: ogImage },
+    image: ogImage,
+    taxID: TAX_ID,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: L.corporate.values.address,
+      streetAddress: M.streetAddress,
       addressLocality: M.addressLocality,
       addressRegion: M.addressRegion,
       addressCountry: 'KR',
     },
-    founder: { '@id': founderId },
-    employee: { '@id': founderId },
-    knowsAbout: M.knowsAbout,
-    knowsLanguage: ['ko', 'en'],
-    areaServed: [{ '@type': 'Country', name: 'KR' }, 'Worldwide'],
-    award: M.award,
+    brand: {
+      '@type': 'Brand',
+      name: M.brandName,
+      alternateName: M.brandAlternateName,
+      url: LINKS.teheranroai,
+    },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: M.serviceCatalogName,
-      itemListElement: L.whatWeDo.handle.items.map((item) => ({
+      name: M.offerCatalogName,
+      itemListElement: L.work.support.items.map((item) => ({
         '@type': 'Offer',
         itemOffered: { '@type': 'Service', name: item, provider: { '@id': orgId } },
       })),
     },
-    contactPoint: {
-      '@type': 'ContactPoint',
-      contactType: lang === 'ko' ? '문의' : 'business inquiries',
-      email: L.corporate.values.email,
-      availableLanguage: ['ko', 'en'],
-    },
+    contactPoint: { '@type': 'ContactPoint', email: L.contact.email },
+    founder: { '@id': founderId },
   };
 
   const founder = {
     '@type': 'Person',
     '@id': founderId,
-    name: L.corporate.values.ceo,
-    alternateName: lang === 'ko' ? 'Hana Beom' : '범하나',
+    name: L.founder.name,
+    alternateName: M.founderAlternateName,
     jobTitle: M.founderJobTitle,
-    description: M.founderDescription,
     worksFor: { '@id': orgId },
-    url: pageUrl,
-    // One person runs four domains and nothing on the web says so. sameAs is the
-    // claim that ties them together; it only carries weight once each of those
-    // sites names the founder back, so treat this as half of the link.
-    sameAs: [LINKS.linkedin, LINKS.hanabeomlaw, LINKS.teheranroai],
-    knowsAbout: M.knowsAbout,
-    knowsLanguage: ['ko', 'en'],
-    hasCredential: L.founder.credentials.map((c) => ({
-      '@type': 'EducationalOccupationalCredential',
-      name: c,
-    })),
-    hasOccupation: [
-      {
-        '@type': 'Occupation',
-        name: lang === 'ko' ? '변호사 (뉴욕주)' : 'Attorney (New York State Bar)',
-      },
-      {
-        '@type': 'Occupation',
-        name: lang === 'ko' ? '소프트웨어 엔지니어' : 'Software Engineer',
-      },
-    ],
+    sameAs: [LINKS.linkedin],
+    award: L.founder.award,
   };
 
   const trops = {
     '@type': 'SoftwareApplication',
     '@id': tropsId,
-    name: L.product.title,
-    alternateName: lang === 'ko' ? 'TROPS 수출 거래 운영 서비스' : 'TROPS trade operations service',
+    name: 'TROPS',
     url: LINKS.trops,
-    applicationCategory: 'BusinessApplication',
-    applicationSubCategory: lang === 'ko' ? '수출 거래 운영' : 'Trade operations',
-    operatingSystem: 'Web',
-    description: [L.product.tagline, L.product.desc, L.product.desc2].join(' '),
-    abstract: L.product.tagline,
-    inLanguage: ['ko', 'en'],
     publisher: { '@id': orgId },
-    author: { '@id': orgId },
-    provider: { '@id': orgId },
-    audience: {
-      '@type': 'BusinessAudience',
-      name: lang === 'ko' ? '수출 중소기업' : 'Small and mid-sized exporters',
-    },
-    featureList: L.product.features.map((f) => `${f.title}. ${f.desc}`),
   };
 
   const website = {
     '@type': 'WebSite',
     '@id': siteId,
     url: ORIGIN,
-    name: META[lang].siteName,
+    name: M.siteName,
     description: M.description,
     publisher: { '@id': orgId },
     inLanguage: LANGS,
@@ -158,7 +126,7 @@ function buildGraph(lang) {
     isPartOf: { '@id': siteId },
     about: { '@id': orgId },
     mentions: [{ '@id': tropsId }, { '@id': founderId }],
-    primaryImageOfPage: { '@type': 'ImageObject', url: `${ORIGIN}${OG_IMAGE.path}` },
+    primaryImageOfPage: { '@type': 'ImageObject', url: ogImage },
     mainEntity: L.faq.items.map((item) => ({
       '@type': 'Question',
       name: item.q,
@@ -171,11 +139,8 @@ function buildGraph(lang) {
 
 function buildHead(lang) {
   const M = META[lang];
-  const L = locales[lang];
-  // Keep the image's alt text tied to the headline the image actually shows.
-  const ogImageAlt = M.ogImageAlt ?? `${META[lang].siteName}, ${L.hero.title}`;
   const pageUrl = urlFor(lang);
-  const ogImage = `${ORIGIN}${OG_IMAGE.path}`;
+  const ogImage = `${ORIGIN}${ogImagePathFor(lang)}`;
   const other = LANGS.filter((l) => l !== lang);
   const tag = (s) => `    ${s}`;
 
@@ -192,7 +157,7 @@ function buildHead(lang) {
     ...(VERIFICATION.naver
       ? [`<meta name="naver-site-verification" content="${esc(VERIFICATION.naver)}" />`]
       : []),
-    `<meta name="author" content="${esc(META[lang].siteName)}" />`,
+    `<meta name="author" content="${esc(M.siteName)}" />`,
     `<link rel="canonical" href="${pageUrl}" />`,
     ...LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${urlFor(l)}" />`),
     `<link rel="alternate" hreflang="x-default" href="${urlFor(DEFAULT_LANG)}" />`,
@@ -208,12 +173,12 @@ function buildHead(lang) {
     `<meta property="og:image:type" content="${OG_IMAGE.type}" />`,
     `<meta property="og:image:width" content="${OG_IMAGE.width}" />`,
     `<meta property="og:image:height" content="${OG_IMAGE.height}" />`,
-    `<meta property="og:image:alt" content="${esc(ogImageAlt)}" />`,
+    `<meta property="og:image:alt" content="${esc(M.ogImageAlt)}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${esc(M.title)}" />`,
     `<meta name="twitter:description" content="${esc(M.description)}" />`,
     `<meta name="twitter:image" content="${ogImage}" />`,
-    `<meta name="twitter:image:alt" content="${esc(ogImageAlt)}" />`,
+    `<meta name="twitter:image:alt" content="${esc(M.ogImageAlt)}" />`,
     `<meta name="theme-color" content="#FFFFFF" />`,
     `<script type="application/ld+json">${jsonLd(buildGraph(lang))}</script>`,
   ]
@@ -227,74 +192,64 @@ function buildHead(lang) {
  * so the two can never drift apart.
  */
 function buildLlmsTxt() {
-  const L = locales[DEFAULT_LANG];
   const E = locales.en;
+  const K = locales.ko;
   const M = META.en;
 
   const lines = [
     '# THÉONÉ Inc. ((주)테오네)',
     '',
-    `> ${M.orgDescription}`,
+    `> ${M.description}`,
     '',
     '## Key facts',
     '',
-    `* **Legal name:** ${E.corporate.values.name} / ${L.corporate.values.name}`,
-    `* **Founded:** 2026, Seoul, Republic of Korea`,
-    `* **Founder & CEO:** ${E.corporate.values.ceo} (${L.corporate.values.ceo}). Attorney admitted in New York and software engineer.`,
-    `* **Business registration number (Republic of Korea):** ${E.corporate.values.regNo}`,
-    `* **Address:** ${E.corporate.values.address}`,
-    `* **Email:** ${E.corporate.values.email}`,
-    `* **Website:** ${ORIGIN} (Korean), ${urlFor('en')} (English)`,
-    `* **Product:** ${E.product.title}. ${E.product.tagline} (${LINKS.trops})`,
-    `* **Recognition:** ${M.award}`,
+    `* **Legal name:** ${E.footer.legalName} / ${K.footer.legalName}`,
+    '* **Founded:** 2026, Seoul, Republic of Korea',
+    `* **CEO:** ${E.founder.name} (${K.founder.name})`,
+    `* **Business registration number (Republic of Korea):** ${TAX_ID}`,
+    `* **Address:** ${E.footer.address}`,
+    `* **Email:** ${E.contact.email}`,
+    `* **Website:** ${urlFor('ko')} (Korean), ${urlFor('en')} (English)`,
     '',
     '## What the company does',
     '',
-    `${E.whatWeDo.handle.title}: ${E.whatWeDo.handle.desc}`,
+    'Two axes.',
     '',
-    ...E.whatWeDo.handle.items.map((i) => `* ${i}`),
+    `### 1. ${E.work.support.name}`,
     '',
-    `${E.whatWeDo.build.title}: ${E.whatWeDo.build.desc}`,
+    ...E.work.support.items.map((i) => `* ${i}`),
     '',
-    ...E.whatWeDo.build.steps.map((s) => `* **${s.badge}.** ${s.text}`),
+    `### 2. ${E.work.software.name}`,
     '',
-    `## ${E.product.title}`,
+    `Released under the brand **Teheranro AI Studio** (테헤란로 AI 스튜디오), ${LINKS.teheranroai} — the software brand of THÉONÉ Inc. THÉONÉ Inc. is the party to all contracts and payments.`,
     '',
-    `${E.product.tagline}`,
+    `* TROPS — ${LINKS.trops}`,
+    '* Otherwise',
+    '* Bar Route',
     '',
-    `${E.product.desc}`,
+    E.work.bridgeLabel,
     '',
-    `${E.product.desc2}`,
+    '## What the company does not do',
     '',
-    ...E.product.features.flatMap((f) => [`**${f.title}.** ${f.desc}`, '']),
-    `Product site: ${LINKS.trops}`,
+    'Legal advice, legal review of contracts, disputes and litigation, and debt collection are outside what THÉONÉ Inc. does.',
     '',
     '## Founder',
     '',
-    `${E.founder.name}`,
+    `${E.founder.name} (${K.founder.name}), ${E.founder.role}.`,
     '',
-    `${E.founder.bio1}`,
-    '',
-    `${E.founder.bio2}`,
-    '',
-    'Credentials:',
-    '',
-    ...E.founder.credentials.map((c) => `* ${c}`),
+    ...E.founder.items.map((i) => `* ${i}`),
     '',
     `LinkedIn: ${LINKS.linkedin}`,
     '',
     '## Frequently asked questions',
     '',
     ...E.faq.items.flatMap((item) => [`### ${item.q}`, '', item.a, '']),
-    '## Important scope note',
-    '',
-    E.footer.disclaimer,
-    '',
     '## Pages',
     '',
     `* [THÉONÉ Inc. (English)](${urlFor('en')})`,
     `* [(주)테오네 (한국어)](${urlFor('ko')})`,
     `* [TROPS](${LINKS.trops})`,
+    `* [Teheranro AI Studio](${LINKS.teheranroai})`,
     '',
   ];
 

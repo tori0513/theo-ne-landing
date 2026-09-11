@@ -1,139 +1,82 @@
 {
-  "header": {
-    "legalName": "THÉONÉ Inc."
+  "nav": {
+    "menuLabel": "Main menu",
+    "langLabel": "Language",
+    "work": "What we do",
+    "founder": "Founder",
+    "contact": "Contact"
   },
   "hero": {
-    "label": "THÉONÉ Inc.",
-    "title": "Cross-border trade for SMEs",
-    "desc": "We handle it directly. What repeats, we build into software."
+    "name": "THÉONÉ Inc.",
+    "nameAlt": "(주)테오네",
+    "lede": ["We help companies trade overseas, and turn the work that repeats into software."]
   },
-  "whatWeDo": {
-    "eyebrow": "What we do",
-    "handle": {
-      "title": "We handle it directly",
-      "desc": "We read the documents and the regulations ourselves, and run the procedures.",
+  "work": {
+    "heading": "What we do",
+    "support": {
+      "name": "Business support",
       "items": [
-        "International contract administration",
-        "Partnership operations",
-        "Cross-border project management"
-      ]
+        "Export and trade insurance paperwork",
+        "Cross-border transaction risk check",
+        "Overseas expansion projects",
+        "Export risk and BEC prevention training",
+        "Startup mentoring"
+      ],
+      "cta": "Get in touch"
     },
-    "build": {
-      "title": "We build it into software",
-      "desc": "Working through it reveals what repeats. That becomes the product.",
-      "steps": [
-        {
-          "badge": "First",
-          "text": "AI scans the full transaction and marks the points that need checking."
-        },
-        {
-          "badge": "Second",
-          "text": "Your team checks only those points and proceeds."
-        }
-      ]
-    }
-  },
-  "product": {
-    "eyebrow": "Product",
-    "title": "TROPS",
-    "tagline": "AI trade operations service for small and mid-sized exporters",
-    "desc": "Export contracts and trade insurance policies scatter the deadlines you have to meet. Across notice, application, premium payment and limit management, each clause starts counting from a different point, and even for the same insurance the deadline shifts with the product and the method of notice.",
-    "desc2": "TROPS sorts those scattered clauses and contract terms into a single list, and manages the transaction flow from buyer verification through to payment collection.",
-    "features": [
-      {
-        "title": "Procedures run in order",
-        "desc": "A step that isn't complete won't let the next one start. Built so nothing depends on memory."
-      },
-      {
-        "title": "It doesn't make the call",
-        "desc": "No interpretation, no grading. It shows you where the clause sits and when it is due. Every basis is cited by its original clause number."
-      },
-      {
-        "title": "The record becomes your evidence",
-        "desc": "What was handled, and when, stays exactly as it happened. When you file an insurance claim, you can export that record and submit it."
-      }
-    ],
-    "cta": "View TROPS",
-    "badge": "Selected, KAIST AI Founders 100"
+    "software": {
+      "name": "Software",
+      "items": ["TROPS", "Otherwise", "Bar Route"],
+      "cta": "All products at teheranro-ai.com"
+    },
+    "bridgeTag": "Trade insurance paperwork",
+    "bridgeLabel": "Work that repeats becomes a product."
   },
   "founder": {
-    "eyebrow": "Founder",
-    "name": "Hana Beom · Founder",
-    "bio1": "Attorney admitted in New York and a software engineer. Handled cross-border transactions at a global corporation and at a law firm.",
-    "bio2": "Work through enough contracts going sideways and payments running late, and you see that most problems don't come from hard judgment calls. They come from a step that was skipped. THÉONÉ Inc. works on those steps.",
-    "credentialsLabel": "Credentials",
-    "credentials": [
-      "Attorney, New York State Bar",
-      "KOTRA K-Move Mentor",
-      "NIPA GIP Expert Advisor"
-    ],
-    "linkedinLabel": "View LinkedIn profile"
-  },
-  "history": {
-    "eyebrow": "History",
+    "heading": "Founder",
+    "name": "Hana Beom",
+    "role": "CEO",
     "items": [
-      {
-        "year": "2026",
-        "event": "THÉONÉ Inc. founded"
-      },
-      {
-        "year": "2026",
-        "event": "TROPS development and operation"
-      }
-    ]
+      "Software engineer, Motorola Korea",
+      "Cross-border transactions, Jieum and Jeongkyeong law firms",
+      "Admitted to the New York State Bar",
+      "KOTRA K-Move mentor, NIPA GIP expert member",
+      "KAIST OverEdge 100 (2026)"
+    ],
+    "award": "KAIST OverEdge 100 (2026)",
+    "linkedin": "LinkedIn"
   },
   "faq": {
-    "eyebrow": "Frequently asked questions",
+    "heading": "Questions",
     "items": [
       {
-        "q": "What is THÉONÉ Inc.?",
-        "a": "THÉONÉ Inc. handles cross-border trade operations for small and mid-sized companies directly, and builds the parts that repeat into AI software. Founded in Seoul in 2026, it develops and operates TROPS, a trade operations service for exporters."
+        "q": "What does THÉONÉ Inc. do?",
+        "a": "We support companies with overseas trade and exports, and build software from the work that repeats under the brand Teheranro AI Studio. Founded in Seoul in 2026."
       },
       {
-        "q": "What is TROPS?",
-        "a": "TROPS is an AI trade operations service for small and mid-sized exporters. It sorts the deadlines scattered across export contracts and trade insurance policies into a single list, and manages the transaction flow from buyer verification through to payment collection. A step that is not complete will not let the next one start, and the processing record can be exported as evidence when filing an insurance claim."
+        "q": "What can I ask for?",
+        "a": "Export and trade insurance paperwork, transaction risk checks, overseas expansion projects, export risk and BEC prevention training, and startup mentoring."
       },
       {
-        "q": "Who uses THÉONÉ Inc.?",
-        "a": "Small and mid-sized companies that trade across borders without a dedicated legal or trade team. THÉONÉ Inc. takes on the work directly when international contract administration, partnership operations, or cross-border project management is needed."
+        "q": "How is Teheranro AI Studio related?",
+        "a": "It is the software brand of THÉONÉ Inc. THÉONÉ Inc. is the party to all contracts and payments."
       },
       {
-        "q": "Is this a legal advisory service?",
-        "a": "No. THÉONÉ Inc. is a trade operations service that handles documents and procedures directly, and does not provide legal advice. Matters requiring legal judgment are referred to partner professionals."
-      },
-      {
-        "q": "How is AI used in the work?",
-        "a": "AI scans the full transaction first and marks the points that need checking, and your team then checks only those points and proceeds. TROPS does not interpret clauses or grade them. It shows where a clause sits and when it is due, citing each basis by its original clause number."
-      },
-      {
-        "q": "Who is the founder?",
-        "a": "Hana Beom is an attorney admitted in New York and a software engineer. They handled cross-border transactions at a global corporation and at a law firm, and serve as a KOTRA K-Move mentor and a NIPA GIP expert advisor."
-      },
-      {
-        "q": "How do I get in touch?",
-        "a": "Email contact@theo-ne.com. The office is at the Westin Seoul Parnas, 524 Bongeunsa-ro, Gangnam-gu, Seoul, Korea."
+        "q": "Do you provide legal advice?",
+        "a": "No. Legal advice, legal review of contracts, disputes and litigation, and debt collection are outside what we do."
       }
     ]
   },
-  "corporate": {
-    "eyebrow": "Corporate information",
-    "fields": {
-      "name": "Company",
-      "ceo": "Founder",
-      "regNo": "Business Reg.",
-      "address": "Address",
-      "email": "Email"
-    },
-    "values": {
-      "name": "THÉONÉ Inc.",
-      "ceo": "Hana Beom",
-      "regNo": "625-81-04032",
-      "address": "Westin Seoul Parnas B269-11, 524 Bongeunsa-ro, Gangnam-gu, Seoul, Korea",
-      "email": "contact@theo-ne.com"
-    }
+  "contact": {
+    "heading": "Contact",
+    "email": "contact@theo-ne.com"
   },
   "footer": {
-    "copyright": "© 2026 THÉONÉ Inc. All rights reserved.",
-    "disclaimer": "Not a legal advisory service. Matters requiring judgment are referred to partner professionals."
+    "legalName": "THÉONÉ Inc.",
+    "ceo": "CEO Hana Beom",
+    "regNo": "Business reg. no. 625-81-04032",
+    "address": "B269-11, 524 Bongeunsa-ro, Gangnam-gu, Seoul",
+    "disclaimer": "Not a legal advisory service.",
+    "copyright": "© 2026"
   }
 }

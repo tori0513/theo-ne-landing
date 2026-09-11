@@ -7,6 +7,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(import.meta.dirname, './src'),
+      // One source of truth for outbound URLs: the build script and the app
+      // read the same constants, so they cannot drift apart.
+      '@site': path.resolve(import.meta.dirname, './scripts/site.mjs'),
     },
   },
   optimizeDeps: {
