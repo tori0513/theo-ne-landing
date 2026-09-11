@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { LINKS } from "@site";
+import { useReveal } from "@/hooks/use-reveal";
 
 interface FaqItem {
   q: string;
@@ -18,33 +19,26 @@ interface FaqItem {
  */
 export default function WorkSection() {
   const { t } = useTranslation();
-  const [go, setGo] = useState(false);
-  const stageRef = useRef<HTMLDivElement>(null);
+  const { ref: stageRef, go } = useReveal<HTMLDivElement>(0.2);
 
   const support = t('work.support.items', { returnObjects: true }) as string[];
   const software = t('work.software.items', { returnObjects: true }) as string[];
   const faq = t('faq.items', { returnObjects: true }) as FaqItem[];
 
+  // A cobalt glow inside the dark card follows the pointer — the brand colour
+  // used as light, not as paint. Pointer-only; touch devices never see it.
   useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce || !('IntersectionObserver' in window)) {
-      setGo(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (es) => {
-        if (es.some((e) => e.isIntersecting)) {
-          setGo(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    io.observe(stage);
-    return () => io.disconnect();
-  }, []);
+    const card = stageRef.current?.querySelector<HTMLElement>('.axis-r');
+    if (!card) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    const onMove = (e: PointerEvent) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', e.clientX - r.left + 'px');
+      card.style.setProperty('--my', e.clientY - r.top + 'px');
+    };
+    card.addEventListener('pointermove', onMove);
+    return () => card.removeEventListener('pointermove', onMove);
+  }, [stageRef]);
 
   return (
     <section id="work" className="work" aria-labelledby="work-h">
@@ -71,18 +65,18 @@ export default function WorkSection() {
           <div className="axis axis-r on-dark">
             <div className="axis-head">
               <p className="axis-name t-title">{t('work.software.name')}</p>
-              <span className="mini-plate" title="Teheranro AI Studio">
+              <a className="mini-plate" href={LINKS.teheranroai} title="Teheranro AI Studio">
                 <span>
                   <b>테헤란로 AI 스튜디오</b>
                   <i>Teheranro AI Studio</i>
                 </span>
-              </span>
+              </a>
             </div>
             <ul className="items">
               {software.map((item) =>
                 item === 'TROPS' ? (
                   <li key={item} id="row-trops">
-                    <a href={LINKS.trops}>{item}</a>
+                    <a className="row-link" href={LINKS.trops}>{item}</a>
                     <span className="badge badge-live">{t('work.stage.live')}</span>
                   </li>
                 ) : (
