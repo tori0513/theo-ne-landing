@@ -149,14 +149,15 @@ function buildHead(lang) {
     `<meta name="description" content="${esc(M.description)}" />`,
     // Let engines quote the page at full length and show a large preview.
     `<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />`,
-    // Search-console ownership. Both consoles re-check the tag periodically, so
-    // it has to survive every deploy, not just the first one.
-    ...(VERIFICATION.google
-      ? [`<meta name="google-site-verification" content="${esc(VERIFICATION.google)}" />`]
-      : []),
-    ...(VERIFICATION.naver
-      ? [`<meta name="naver-site-verification" content="${esc(VERIFICATION.naver)}" />`]
-      : []),
+    // Search-console ownership, one tag per registered token. Both consoles
+    // re-check periodically, so every token has to survive every deploy — not
+    // just the first one, and not just the newest property.
+    ...VERIFICATION.google.map(
+      (t) => `<meta name="google-site-verification" content="${esc(t)}" />`
+    ),
+    ...VERIFICATION.naver.map(
+      (t) => `<meta name="naver-site-verification" content="${esc(t)}" />`
+    ),
     `<meta name="author" content="${esc(M.siteName)}" />`,
     `<link rel="canonical" href="${pageUrl}" />`,
     ...LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${urlFor(l)}" />`),
@@ -292,8 +293,10 @@ const template = fs.readFileSync(templatePath, 'utf8');
 // Google owns this property through a DNS TXT record on the apex domain, so no
 // google meta tag is expected and its absence is not worth warning about.
 // GOOGLE_SITE_VERIFICATION stays wired up for a future URL-prefix property.
-if (!VERIFICATION.naver) {
-  console.warn('  ! NAVER_SITE_VERIFICATION is unset — the naver site-verification tag will be omitted.');
+if (VERIFICATION.naver.length === 0) {
+  console.warn('  ! NAVER_SITE_VERIFICATION is unset — no naver site-verification tag will be emitted.');
+} else {
+  console.log(`  naver site-verification: ${VERIFICATION.naver.length} token(s)`);
 }
 
 const { render } = await import(pathToFileURL(path.join(root, 'dist-ssr/entry-server.js')).href);

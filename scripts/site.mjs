@@ -11,13 +11,24 @@ export const ORIGIN = 'https://theo-ne.com';
  *   GOOGLE_SITE_VERIFICATION  Search Console > HTML 태그 방식의 content 값만
  *   NAVER_SITE_VERIFICATION   서치어드바이저 > 사이트 소유확인 > HTML 태그의 content 값만
  *
+ * Each holds a LIST — comma- or whitespace-separated — because a property can
+ * be registered more than once (a second Naver Search Advisor property, say),
+ * and every token has to keep being served or the older claim lapses. One tag
+ * is emitted per token.
+ *
  * An empty value simply omits the tag, so a local build works without them —
  * prerender.mjs warns when one is missing so a production build cannot lose
  * ownership silently.
  */
+const tokenList = (value) =>
+  (value ?? '')
+    .split(/[,\s]+/)
+    .map((t) => t.trim())
+    .filter(Boolean);
+
 export const VERIFICATION = {
-  google: process.env.GOOGLE_SITE_VERIFICATION ?? '',
-  naver: process.env.NAVER_SITE_VERIFICATION ?? '',
+  google: tokenList(process.env.GOOGLE_SITE_VERIFICATION),
+  naver: tokenList(process.env.NAVER_SITE_VERIFICATION),
 };
 
 /**
