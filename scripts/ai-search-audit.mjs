@@ -62,6 +62,38 @@ const jsonLdOf = (html) => {
   try { return JSON.parse(m[1]); } catch { return null; }
 };
 
+/**
+ * Body-length floors, per language.
+ *
+ * Applying one character count to both languages measures the writing system,
+ * not the page: Korean says the same thing in far fewer characters. Measured on
+ * the current pages, which carry identical content:
+ *
+ *     ko 967 chars / en 1683 chars = 0.5746
+ *
+ * So the English floor of 1000 corresponds to 1000 x 0.5746 = 575 in Korean.
+ * Re-derive both numbers if the two locales ever stop carrying the same copy.
+ */
+const MIN_CHARS = { ko: 575, en: 1000 };
+
+/**
+ * Proof that the server rendered the page: every one of these has to be in the
+ * raw HTML before any JavaScript runs. Deliberately hardcoded rather than read
+ * from the locale files — an audit that reads the same source it checks proves
+ * nothing.
+ */
+const SSR_ENTITIES = [
+  '테오네',
+  '수출·무역보험 서류 준비',
+  '해외 거래 리스크 점검',
+  '해외 진출 프로젝트 운영',
+  '수출 리스크·BEC 예방 교육',
+  '창업 기업 멘토링',
+  'Teheranro AI Studio',
+  'TROPS',
+  '625-81-04032',
+];
+
 // ---------------------------------------------------------------- fetch pages
 const ko = await get(`${BASE}/`, AI_AGENTS.GPTBot);
 const en = await get(`${BASE}/en/`, AI_AGENTS.GPTBot);
@@ -70,10 +102,13 @@ const enText = visibleText(en.body);
 
 // ============================================ 1. JS-free crawlability  (30)
 const C1 = 'JS 없이 읽히는가 (Crawlability)';
-check(C1, 12, 'Korean page renders server-side (no JS needed)', koText.length >= 1000,
-  `${koText.length} chars of text in raw HTML`);
-check(C1, 6, 'English page renders server-side', enText.length >= 1000,
-  `${enText.length} chars of text in raw HTML`);
+const ssrMissing = SSR_ENTITIES.filter((e) => !koText.includes(e));
+check(C1, 12, 'SSR: core entities in raw HTML before any JS runs', ssrMissing.length === 0,
+  ssrMissing.length ? `missing: ${ssrMissing.join(', ')}` : `all ${SSR_ENTITIES.length} present`);
+const lenOk = [['ko', koText.length], ['en', enText.length]].map(([l, n]) => [l, n, n >= MIN_CHARS[l]]);
+partial(C1, 6, 'Body length meets the per-language floor',
+  lenOk.filter(([, , ok]) => ok).length / lenOk.length,
+  lenOk.map(([l, n, ok]) => `${l} ${n}/${MIN_CHARS[l]}${ok ? '' : ' LOW'}`).join('  '));
 check(C1, 6, 'Root element is not an empty shell', !/<div id="root">\s*<\/div>/.test(ko.body),
   /<div id="root">\s*<\/div>/.test(ko.body) ? 'root is empty: SPA not prerendered' : 'prerendered markup present');
 const coreTokens = ['테오네', 'TROPS', 'Teheranro AI Studio', '범하나', 'contact@theo-ne.com', '625-81-04032'];
@@ -92,15 +127,20 @@ partial(C2, 8, 'Major AI crawlers explicitly allowed', declared.length / mustAll
   `${declared.length}/${mustAllow.length} named`);
 check(C2, 2, 'Sitemap declared in robots.txt', /Sitemap:\s*http/i.test(robots.body),
   (robots.body.match(/Sitemap:.*/i) || ['none'])[0]);
-const uaResults = [];
+// `/` is the Korean page, so it is held to the Korean floor.
+const uaEntities = [];
+const uaLength = [];
 for (const [name, ua] of Object.entries(AI_AGENTS)) {
   const r = await get(`${BASE}/`, ua);
-  const ok = r.status === 200 && visibleText(r.body).length >= 1000;
-  uaResults.push(`${name}:${ok ? 'OK' : 'FAIL'}`);
+  const text = visibleText(r.body);
+  uaEntities.push(`${name}:${r.status === 200 && SSR_ENTITIES.every((e) => text.includes(e)) ? 'OK' : 'FAIL'}`);
+  uaLength.push(`${name}:${r.status === 200 && text.length >= MIN_CHARS.ko ? 'OK' : 'FAIL'}`);
 }
-const uaOk = uaResults.filter((r) => r.endsWith('OK')).length;
-partial(C2, 2, 'Live fetch as each AI user-agent returns full content',
-  uaOk / uaResults.length, uaResults.join('  '));
+const okCount = (rs) => rs.filter((r) => r.endsWith('OK')).length;
+partial(C2, 1, 'Live fetch as each AI user-agent returns core entities',
+  okCount(uaEntities) / uaEntities.length, uaEntities.join('  '));
+partial(C2, 1, 'Live fetch as each AI user-agent returns a full-length body',
+  okCount(uaLength) / uaLength.length, uaLength.join('  '));
 
 // ============================================ 3. Structured data      (20)
 const C3 = '구조화 데이터 (Structured data)';

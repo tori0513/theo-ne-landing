@@ -9,7 +9,9 @@
   "hero": {
     "name": "THÉONÉ Inc.",
     "nameAlt": "(주)테오네",
-    "lede": ["We help companies trade overseas, and turn the work that repeats into software."]
+    "lede": [
+      "We help companies trade overseas, and turn the work that repeats into software."
+    ]
   },
   "work": {
     "heading": "What we do",
@@ -26,7 +28,11 @@
     },
     "software": {
       "name": "Software",
-      "items": ["TROPS", "Otherwise", "Bar Route"],
+      "items": [
+        "TROPS",
+        "Otherwise",
+        "Bar Route"
+      ],
       "cta": "All products at teheranro-ai.com"
     },
     "bridgeTag": "Trade insurance paperwork",
@@ -56,6 +62,10 @@
       {
         "q": "What can I ask for?",
         "a": "Export and trade insurance paperwork, transaction risk checks, overseas expansion projects, export risk and BEC prevention training, and startup mentoring."
+      },
+      {
+        "q": "Who is it for?",
+        "a": "Small and mid-sized companies that trade overseas without dedicated trade staff, and startups preparing to go overseas."
       },
       {
         "q": "How is Teheranro AI Studio related?",
